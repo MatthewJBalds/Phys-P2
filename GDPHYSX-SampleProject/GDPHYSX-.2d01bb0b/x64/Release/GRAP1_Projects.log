@@ -1,0 +1,43 @@
+﻿  MyCamera.cpp
+  OrthoCamera.cpp
+  PerspectiveCamera.cpp
+  GameObject.cpp
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\GameObject.cpp(47,60): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\GameObject.cpp(106,72): warning C4312: 'type cast': conversion from 'GLuint' to 'void *' of greater size
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\GameObject.cpp(109,72): warning C4312: 'type cast': conversion from 'GLuint' to 'void *' of greater size
+  GDPHYSX-SampleProject.cpp
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\GDPHYSX-SampleProject.cpp(45,45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\GDPHYSX-SampleProject.cpp(45,31): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\GDPHYSX-SampleProject.cpp(89,60): warning C4305: 'argument': truncation from 'double' to 'float'
+  AnchoredSpring.cpp
+  bungee.cpp
+  Chain.cpp
+  ContactResolver.cpp
+  ForceGenerator.cpp
+  ForceRegistry.cpp
+  GravityForceGenerator.cpp
+  ParticleLink.cpp
+  Rod.cpp
+  MyVector.cpp
+  P6Particle.cpp
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\p6\P6Particle.cpp(55,43): warning C4244: 'argument': conversion from 'float' to '_Ty', possible loss of data
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\p6\P6Particle.cpp(55,43): warning C4244:         with
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\p6\P6Particle.cpp(55,43): warning C4244:         [
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\p6\P6Particle.cpp(55,43): warning C4244:             _Ty=int
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\p6\P6Particle.cpp(55,43): warning C4244:         ]
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\p6\P6Particle.cpp(55,38): warning C4244: 'argument': conversion from 'float' to '_Ty', possible loss of data
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\p6\P6Particle.cpp(55,38): warning C4244:         with
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\p6\P6Particle.cpp(55,38): warning C4244:         [
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\p6\P6Particle.cpp(55,38): warning C4244:             _Ty=int
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\p6\P6Particle.cpp(55,38): warning C4244:         ]
+C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\p6\P6Particle.cpp(59,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  ParticleContact.cpp
+  PhysicsWorld.cpp
+  RenderParticle.cpp
+  Shader.cpp
+  glad.c
+  Generating code
+  Previous IPDB was built with incompatible compiler, fall back to full compilation.
+  All 2350 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  GRAP1_Projects.vcxproj -> C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\x64\Release\GDPHYSX-SampleProject.exe
