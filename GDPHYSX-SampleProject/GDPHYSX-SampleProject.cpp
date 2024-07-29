@@ -10,6 +10,7 @@
 #include "p6/PhysicsWorld.h"
 #include "p6/P6Particle.h"
 #include "p6/RenderParticle.h"
+#include "p6/RenderLine.h"
 #include "p6/ParticleContact.h"
 #include "Camera/OrthoCamera.h"
 #include "Camera/PerspectiveCamera.h"
@@ -99,6 +100,9 @@ int main(void)
     RenderParticle rp2 = RenderParticle(&p2, &sphere, glm::vec4(0, 0, 0.4f, 1.f), p2.radius);
     RenderParticles.push_back(&rp2);
 
+    RenderLine bungeeLine = RenderLine(springPosBungee, p2.Position, glm::vec4(1, 1, 1, 1));
+    RenderLine chainLine = RenderLine(springPosChain, p1.Position, glm::vec4(1, 1, 1, 1));
+
 
     while (!glfwWindowShouldClose(window))
     {
@@ -156,6 +160,12 @@ int main(void)
             (*i)->Draw(identity_matrix, projection_matrix, view_matrix);
         }
 
+        //for lines
+        bungeeLine.Update(springPosBungee, p2.Position, projection_matrix);
+        bungeeLine.Draw();
+
+        chainLine.Update(springPosChain, p1.Position, projection_matrix);
+        chainLine.Draw();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
