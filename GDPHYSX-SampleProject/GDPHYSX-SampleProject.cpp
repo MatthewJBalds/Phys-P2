@@ -42,7 +42,7 @@ int main(void)
     if (!glfwInit())
         return -1;
 
-    window = glfwCreateWindow(window_width, window_height, "QUIZ_MATTHEW JAYD BALDONADO", NULL, NULL);
+    window = glfwCreateWindow(window_width, window_height, "Group 5 Phase 2: Baldonado - Macaraeg", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
