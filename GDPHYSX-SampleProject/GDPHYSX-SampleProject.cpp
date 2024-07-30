@@ -12,6 +12,7 @@
 #include "p6/RenderParticle.h"
 #include "p6/RenderLine.h"
 #include "p6/ParticleContact.h"
+
 #include "Camera/OrthoCamera.h"
 #include "Camera/PerspectiveCamera.h"
 
@@ -40,6 +41,21 @@ int main(void)
     auto prev_time = curr_time;
     std::chrono::nanoseconds curr_ns(0);
 
+
+    float cableLength;
+    float particleGap, particleRad;
+    float gravityStrength;
+    float forceX, forceY, forceZ;
+
+    //For User Inputs
+    std::cout << "Cable Length: "; std::cin >> cableLength;
+    std::cout << "Particle Gap: "; std::cin >> particleGap;
+    std::cout << "Particle Radius: "; std::cin >> particleRad;
+    std::cout << "Gravity Strength: "; std::cin >> gravityStrength;
+    std::cout << "Force in X: "; std::cin >> forceX;
+    std::cout << "Force in Y: "; std::cin >> forceY;
+    std::cout << "Force in Z: "; std::cin >> forceZ;
+
     if (!glfwInit())
         return -1;
 
@@ -57,7 +73,7 @@ int main(void)
     ortho_camera->setCameraPosition(glm::vec3(0.0f, 0.0f, 400.0f));
     auto pers_camera = new PerspectiveCamera();
     pers_camera->setCameraPosition(glm::vec3(0, 0.f, 550.f));
-    auto pWorld = physics::PhysicsWorld();
+    auto pWorld = physics::PhysicsWorld(MyVector(0,gravityStrength,0));
     auto sphere = GameObject("3D/sphere.obj", "Shaders/sample.vert", "Shaders/sample.frag");
 
     glViewport(0, 0, 800, 800);
@@ -74,17 +90,41 @@ int main(void)
     bool paused = false;
     bool pressed = false;
 
+
+    //Create Particles 
+
     physics::PhysicsParticle p1 = physics::PhysicsParticle();
-    p1.Position = physics::MyVector(250, 100, 0);
+    physics::PhysicsParticle p2 = physics::PhysicsParticle();
+    physics::PhysicsParticle p3 = physics::PhysicsParticle();
+    physics::PhysicsParticle p4 = physics::PhysicsParticle();
+    physics::PhysicsParticle p5 = physics::PhysicsParticle();
+
+    p1.Position = physics::MyVector(p2.Position.x - particleGap, 100, 0);
     p1.mass = 50;
-    p1.radius = 50.f;
+    p1.radius = particleRad;
     pWorld.AddParticle(&p1);
 
-    physics::PhysicsParticle p2 = physics::PhysicsParticle();
-    p2.Position = physics::MyVector(-200, 100, 0);
+    p2.Position = physics::MyVector(p3.Position.x - particleGap, 100, 0);
     p2.mass = 50;
-    p2.radius = 50.f;
+    p2.radius = particleRad;
     pWorld.AddParticle(&p2);
+
+    p3.Position = physics::MyVector(0, 100, 0);
+    p3.mass = 50;
+    p3.radius = particleRad;
+    pWorld.AddParticle(&p3);
+
+    p4.Position = physics::MyVector(p3.Position.x + particleGap, 100, 0);
+    p4.mass = 50;
+    p4.radius = particleRad;
+    pWorld.AddParticle(&p4);
+
+    p5.Position = physics::MyVector(p4.Position.x + particleGap, 100, 0);
+    p5.mass = 50;
+    p5.radius = particleRad;
+    pWorld.AddParticle(&p5);
+
+    
 
     physics::MyVector springPosBungee = physics::MyVector(-200, 150, 0);
     physics::bungee bungeeSpring = bungee(springPosBungee, 0.7, 200);
