@@ -159,6 +159,7 @@
     <ClCompile Include="p6\P6Particle.cpp" />
     <ClCompile Include="p6\ParticleContact.cpp" />
     <ClCompile Include="p6\PhysicsWorld.cpp" />
+    <ClCompile Include="p6\RenderLine.cpp" />
     <ClCompile Include="p6\RenderParticle.cpp" />
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>
@@ -180,6 +181,7 @@
     <ClInclude Include="p6\MyVector.h" />
     <ClInclude Include="p6\ParticleContact.h" />
     <ClInclude Include="p6\PhysicsWorld.h" />
+    <ClInclude Include="p6\RenderLine.h" />
     <ClInclude Include="p6\RenderParticle.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />

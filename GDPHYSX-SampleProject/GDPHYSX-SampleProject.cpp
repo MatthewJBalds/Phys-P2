@@ -52,9 +52,10 @@ int main(void)
     std::cout << "Particle Gap: "; std::cin >> particleGap;
     std::cout << "Particle Radius: "; std::cin >> particleRad;
     std::cout << "Gravity Strength: "; std::cin >> gravityStrength;
-    std::cout << "Force in X: "; std::cin >> forceX;
-    std::cout << "Force in Y: "; std::cin >> forceY;
-    std::cout << "Force in Z: "; std::cin >> forceZ;
+    std::cout << "Apply Force: " << std::endl;
+    std::cout << "x: "; std::cin >> forceX;
+    std::cout << "y: "; std::cin >> forceY;
+    std::cout << "z: "; std::cin >> forceZ;
 
     if (!glfwInit())
         return -1;
@@ -125,28 +126,60 @@ int main(void)
     pWorld.AddParticle(&p5);
 
     
+    //For Springs
+    physics::MyVector springPos1;
+    physics::MyVector springPos2;
+    physics::MyVector springPos3;
+    physics::MyVector springPos4;
+    physics::MyVector springPos5;
 
-    physics::MyVector springPosBungee = physics::MyVector(-200, 150, 0);
-    physics::bungee bungeeSpring = bungee(springPosBungee, 0.7, 200);
-    pWorld.forceRegistry.Add(&p2, &bungeeSpring);
+    springPos1 = physics::MyVector(springPos2.x - particleGap, 150, 0);
+    physics::Chain chainSpring1 = Chain(springPos1, 0, cableLength);
+    pWorld.forceRegistry.Add(&p1, &chainSpring1);
 
-    physics::MyVector springPosChain = physics::MyVector(200, 150, 0);
-    physics::Chain chainSpring = Chain(springPosChain, 0, 300);
-    pWorld.forceRegistry.Add(&p1, &chainSpring);
+    springPos2 = physics::MyVector(springPos3.x - particleGap, 150, 0);
+    physics::Chain chainSpring2 = Chain(springPos2, 0, cableLength);
+    pWorld.forceRegistry.Add(&p2, &chainSpring2);
 
+    springPos3 = physics::MyVector(0, 150, 0);
+    physics::Chain chainSpring3 = Chain(springPos3, 0, cableLength);
+    pWorld.forceRegistry.Add(&p3, &chainSpring3);
+
+    springPos4 = physics::MyVector(springPos3.x + particleGap, 150, 0);
+    physics::Chain chainSpring4 = Chain(springPos4, 0, cableLength);
+    pWorld.forceRegistry.Add(&p4, &chainSpring4);
+
+    springPos5 = physics::MyVector(springPos4.x + particleGap, 150, 0);
+    physics::Chain chainSpring5 = Chain(springPos5, 0, cableLength);
+    pWorld.forceRegistry.Add(&p5, &chainSpring5);
+
+    //Render Particles
     RenderParticle rp1 = RenderParticle(&p1, &sphere, glm::vec4(0.4f, 0, 0, 0.f), p1.radius);
     RenderParticles.push_back(&rp1);
 
-    RenderParticle rp2 = RenderParticle(&p2, &sphere, glm::vec4(0, 0, 0.4f, 1.f), p2.radius);
+    RenderParticle rp2 = RenderParticle(&p2, &sphere, glm::vec4(0.4f, 0, 0, 0.f), p2.radius);
     RenderParticles.push_back(&rp2);
 
-    RenderLine bungeeLine = RenderLine(springPosBungee, p2.Position, glm::vec4(1, 1, 1, 1));
-    RenderLine chainLine = RenderLine(springPosChain, p1.Position, glm::vec4(1, 1, 1, 1));
+    RenderParticle rp3 = RenderParticle(&p3, &sphere, glm::vec4(0.4f, 0, 0, 0.f), p3.radius);
+    RenderParticles.push_back(&rp3);
+
+    RenderParticle rp4 = RenderParticle(&p4, &sphere, glm::vec4(0.4f, 0, 0, 0.f), p4.radius);
+    RenderParticles.push_back(&rp4);
+
+    RenderParticle rp5 = RenderParticle(&p5, &sphere, glm::vec4(0.4f, 0, 0, 0.f), p5.radius);
+    RenderParticles.push_back(&rp5);
+
+    RenderLine p1Line = RenderLine(springPos1, p1.Position, glm::vec4(1, 1, 1, 1));
+    RenderLine p2Line = RenderLine(springPos2, p2.Position, glm::vec4(1, 1, 1, 1));
+    RenderLine p3Line = RenderLine(springPos3, p3.Position, glm::vec4(1, 1, 1, 1));
+    RenderLine p4Line = RenderLine(springPos4, p4.Position, glm::vec4(1, 1, 1, 1));
+    RenderLine p5Line = RenderLine(springPos5, p5.Position, glm::vec4(1, 1, 1, 1));
+
 
 
     while (!glfwWindowShouldClose(window))
     {
-        glClear(0x00004000);
+        glClear(GL_COLOR_BUFFER_BIT);
 
         curr_time = clock::now();
         auto dur = std::chrono::duration_cast<std::chrono::nanoseconds> (curr_time - prev_time);
@@ -172,6 +205,7 @@ int main(void)
             if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && !pressed)
             {
                 paused = !paused;
+                p1.AddForce(physics::MyVector(forceX, forceY, forceZ));
                 std::cout << (paused ? "Paused" : "Resumed") << std::endl;
                 pressed = true;
             }
@@ -201,11 +235,20 @@ int main(void)
         }
 
         //for lines
-        bungeeLine.Update(springPosBungee, p2.Position, projection_matrix);
-        bungeeLine.Draw();
+        p1Line.Update(springPos1, p1.Position, projection_matrix, view_matrix);
+        p1Line.Draw();
 
-        chainLine.Update(springPosChain, p1.Position, projection_matrix);
-        chainLine.Draw();
+        p2Line.Update(springPos2, p2.Position, projection_matrix, view_matrix);
+        p2Line.Draw();
+
+        p3Line.Update(springPos3, p3.Position, projection_matrix, view_matrix);
+        p3Line.Draw();
+
+        p4Line.Update(springPos4, p4.Position, projection_matrix, view_matrix);
+        p4Line.Draw();
+
+        p5Line.Update(springPos5, p5.Position, projection_matrix, view_matrix);
+        p5Line.Draw();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
