@@ -32,9 +32,11 @@ namespace physics {
 		//Updates the particle list
 		void UpdateParticleList();
 
-		GravityForceGenerator Gravity = GravityForceGenerator(MyVector(0, -300.f, 0));
+		GravityForceGenerator Gravity;
 
 	public:
+		MyVector gravity;
+		PhysicsWorld(const MyVector& gravity) : Gravity(GravityForceGenerator(gravity)), gravity(gravity) {}
 		//Create a Dynamic Array of Contacts
 		//You can use the vector cass for this
 		std::vector<ParticleContact*> Contacts;
