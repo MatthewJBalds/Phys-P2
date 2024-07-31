@@ -29,11 +29,11 @@ void ContactResolver::ResolveContacts(std::vector<ParticleContact*> contacts, fl
                 }
             }
         }
-
+        //CONDITION TO STOP RESOLVING
         if (minSeparatingSpeed >= 0 && max_depth <= 0) {
-            break; // or return, depending on your requirements
+            break; 
         }
-
+        //RESOLVE CONTACT 
         contacts[curr_index]->Resolve(time);
         current_iterations++;
     }

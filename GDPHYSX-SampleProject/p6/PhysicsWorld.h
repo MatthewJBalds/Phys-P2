@@ -45,9 +45,10 @@ namespace physics {
 
 	protected:
 		ContactResolver contactResolver = ContactResolver(20);
+		void GetOverlaps();
 
 	public:
-		void GetOverlaps();
+
 
 		void GenerateContacts();
 	};

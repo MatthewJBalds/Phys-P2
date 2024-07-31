@@ -7,8 +7,14 @@
 #include <cmath>
 #include "GameObject.h"
 
+
+//#include "p6/bungee/bungee.h"
+#include "p6/Chain/Chain.h"
+
+//#include "p6/Links/Rod.h"
+
 #include "p6/PhysicsWorld.h"
-#include "p6/P6Particle.h"
+//#include "p6/P6Particle.h"
 #include "p6/RenderParticle.h"
 #include "p6/RenderLine.h"
 #include "p6/ParticleContact.h"
@@ -16,9 +22,8 @@
 #include "Camera/OrthoCamera.h"
 #include "Camera/PerspectiveCamera.h"
 
-#include "p6/Links/Rod.h"
-#include "p6/bungee/bungee.h"
-#include "p6/Chain/Chain.h"
+
+
 
 
 using namespace std::chrono_literals;
@@ -74,7 +79,7 @@ int main(void)
     ortho_camera->setCameraPosition(glm::vec3(0.0f, 0.0f, 400.0f));
     auto pers_camera = new PerspectiveCamera();
     pers_camera->setCameraPosition(glm::vec3(0, 0.f, 550.f));
-    auto pWorld = physics::PhysicsWorld(MyVector(0,gravityStrength,0));
+    auto pWorld = physics::PhysicsWorld(MyVector(0, gravityStrength, 0));
     auto sphere = GameObject("3D/sphere.obj", "Shaders/sample.vert", "Shaders/sample.frag");
 
     glViewport(0, 0, 800, 800);
@@ -93,63 +98,57 @@ int main(void)
 
 
     //Create Particles 
+ 
+  
 
-    physics::PhysicsParticle p1 = physics::PhysicsParticle();
-    physics::PhysicsParticle p2 = physics::PhysicsParticle();
     physics::PhysicsParticle p3 = physics::PhysicsParticle();
-    physics::PhysicsParticle p4 = physics::PhysicsParticle();
-    physics::PhysicsParticle p5 = physics::PhysicsParticle();
-
-    p1.Position = physics::MyVector(p2.Position.x - particleGap, 100, 0);
-    p1.mass = 50;
-    p1.radius = particleRad;
-    pWorld.AddParticle(&p1);
-
-    p2.Position = physics::MyVector(p3.Position.x - particleGap, 100, 0);
-    p2.mass = 50;
-    p2.radius = particleRad;
-    pWorld.AddParticle(&p2);
-
     p3.Position = physics::MyVector(0, 100, 0);
     p3.mass = 50;
     p3.radius = particleRad;
     pWorld.AddParticle(&p3);
 
+    physics::PhysicsParticle p2 = physics::PhysicsParticle();
+    p2.Position = physics::MyVector(p3.Position.x - particleGap, 100, 0);
+    p2.mass = 50;
+    p2.radius = particleRad;
+    pWorld.AddParticle(&p2);
+
+    physics::PhysicsParticle p1 = physics::PhysicsParticle();
+    p1.Position = physics::MyVector(p2.Position.x - particleGap, 100, 0);
+    p1.mass = 50;
+    p1.radius = particleRad;
+    pWorld.AddParticle(&p1);
+
+    physics::PhysicsParticle p4 = physics::PhysicsParticle();
     p4.Position = physics::MyVector(p3.Position.x + particleGap, 100, 0);
     p4.mass = 50;
     p4.radius = particleRad;
     pWorld.AddParticle(&p4);
 
+    physics::PhysicsParticle p5 = physics::PhysicsParticle();
     p5.Position = physics::MyVector(p4.Position.x + particleGap, 100, 0);
     p5.mass = 50;
     p5.radius = particleRad;
     pWorld.AddParticle(&p5);
 
-    
-    //For Springs
-    physics::MyVector springPos1;
-    physics::MyVector springPos2;
-    physics::MyVector springPos3;
-    physics::MyVector springPos4;
-    physics::MyVector springPos5;
-
-    springPos1 = physics::MyVector(springPos2.x - particleGap, 150, 0);
-    physics::Chain chainSpring1 = Chain(springPos1, 0, cableLength);
-    pWorld.forceRegistry.Add(&p1, &chainSpring1);
-
-    springPos2 = physics::MyVector(springPos3.x - particleGap, 150, 0);
-    physics::Chain chainSpring2 = Chain(springPos2, 0, cableLength);
-    pWorld.forceRegistry.Add(&p2, &chainSpring2);
-
-    springPos3 = physics::MyVector(0, 150, 0);
+    //springs for force registry
+    physics::MyVector springPos3 = physics::MyVector(0, 150, 0);
     physics::Chain chainSpring3 = Chain(springPos3, 0, cableLength);
     pWorld.forceRegistry.Add(&p3, &chainSpring3);
 
-    springPos4 = physics::MyVector(springPos3.x + particleGap, 150, 0);
+    physics::MyVector springPos2 = physics::MyVector(springPos3.x - particleGap, 150, 0);
+    physics::Chain chainSpring2 = Chain(springPos2, 0, cableLength);
+    pWorld.forceRegistry.Add(&p2, &chainSpring2);
+
+    physics::MyVector springPos1 = physics::MyVector(springPos2.x - particleGap, 150, 0);
+    physics::Chain chainSpring1 = Chain(springPos1, 0, cableLength);
+    pWorld.forceRegistry.Add(&p1, &chainSpring1);
+
+    physics::MyVector springPos4 = physics::MyVector(springPos3.x + particleGap, 150, 0);
     physics::Chain chainSpring4 = Chain(springPos4, 0, cableLength);
     pWorld.forceRegistry.Add(&p4, &chainSpring4);
 
-    springPos5 = physics::MyVector(springPos4.x + particleGap, 150, 0);
+    physics::MyVector springPos5 = physics::MyVector(springPos4.x + particleGap, 150, 0);
     physics::Chain chainSpring5 = Chain(springPos5, 0, cableLength);
     pWorld.forceRegistry.Add(&p5, &chainSpring5);
 
@@ -204,7 +203,6 @@ int main(void)
             }
             if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && !pressed)
             {
-                paused = !paused;
                 p1.AddForce(physics::MyVector(forceX, forceY, forceZ));
                 std::cout << (paused ? "Paused" : "Resumed") << std::endl;
                 pressed = true;
@@ -230,6 +228,7 @@ int main(void)
             }
         }
 
+        //render particles
         for (std::list<RenderParticle*>::iterator i = RenderParticles.begin(); i != RenderParticles.end(); i++) {
             (*i)->Draw(identity_matrix, projection_matrix, view_matrix);
         }

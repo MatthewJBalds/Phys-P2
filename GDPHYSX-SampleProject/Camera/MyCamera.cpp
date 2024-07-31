@@ -2,9 +2,9 @@
 #include <iostream>
 MyCamera::MyCamera()
 {
-	this->cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);
-	this->orientation = glm::vec3(0.0f, 0.0f, -1.0f);
-	this->up = glm::normalize(glm::vec3(0.f, 1.f, 0.f));
+	this->cameraPos = glm::vec3(0.0f, 0.0f, 0.0f); //initiallize position
+	this->orientation = glm::vec3(0.0f, 0.0f, -1.0f); //initial orientation (z axis looking down)
+	this->up = glm::normalize(glm::vec3(0.f, 1.f, 0.f));//normalize the up vector
 
 	SetViewMatrix();
 }
@@ -17,15 +17,13 @@ void MyCamera::CameraMovement(glm::vec3 movement)
 
 void MyCamera::setCameraPosition(glm::vec3 position)
 {
-	glm::vec3 new_pos = position;
-	this->cameraPos = new_pos;
+	this->cameraPos = position;
 	SetViewMatrix();
 }
 
 void MyCamera::setCenter(glm::vec3 orientation)
 {
-	glm::vec3 new_orientation = orientation;
-	this->orientation = new_orientation;
+	this->orientation = orientation;
 	SetViewMatrix();
 }
 

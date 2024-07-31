@@ -17,6 +17,6 @@ class PerspectiveCamera :
 		PerspectiveCamera();
 		glm::mat4 getViewProjection() const;
 		void SetProjectionMatrix(float viewAngle);
-		//void Update(GLFWwindow* window, float time);
+		
 };
 

@@ -11,9 +11,9 @@ namespace physics
 	public:
 		//The particles in contact
 		PhysicsParticle* particles[2];
-		//Holds the coefficient of restitution
+		//coefficient of restitution
 		float restitution;
-		//Contact normal of this collision
+		//Contact normal of collision
 		MyVector contactNormal;
 		//Resolve this contact
 		void Resolve(float time);
@@ -22,9 +22,9 @@ namespace physics
 		void ResolveInterpenetration(float time);
 
 	public:
-		//Get the seperating speed of this collision
+		//Get the seperating speed of collision
 		float GetSeparatingSpeed();
-		//Calculates the nnew velocities of thhe objects
+		//Calculates the nnew velocities of the objects
 		void ResolveVelocity(float time);
 	};
 }

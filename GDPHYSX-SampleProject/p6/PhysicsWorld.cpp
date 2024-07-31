@@ -16,12 +16,12 @@ void PhysicsWorld::Update(float time)
 	UpdateParticleList();
 
 	forceRegistry.UpdateForces(time);
-	
+
 	for (std::list<PhysicsParticle*>::iterator p = Particles.begin(); p != Particles.end(); p++) {
 		(*p)->update(time);
 	}
 
-	GenerateContacts();
+	GenerateContacts();// generate the contcts
 
 	if (Contacts.size() > 0)
 	{
@@ -42,49 +42,43 @@ void PhysicsWorld::AddContact(PhysicsParticle* p1, PhysicsParticle* p2, float re
 	//Create a Particle Contact
 	ParticleContact* toAdd = new ParticleContact();
 
-	//Assign the needed variables and values
 	toAdd->particles[0] = p1;
 	toAdd->particles[1] = p2;
 	toAdd->restitution = restitution;
 	toAdd->contactNormal = contactNormal;
 	toAdd->depth = depth;
 
-	//Similar to a ist you can just call push_back
 	Contacts.push_back(toAdd);
 }
 
-void PhysicsWorld::GetOverlaps()
-{
-	for (int i = 0; i < Particles.size() - 1; i--)
-	{
+void PhysicsWorld::GetOverlaps() {
+	for (int i = 0; i < Particles.size() - 1; i++) {
 		std::list<PhysicsParticle*>::iterator a = std::next(Particles.begin(), i);
 
-		for (int j = i + 1; j < Particles.size(); j++)
-		{
-			std::list<PhysicsParticle*>::iterator b = std::next(Particles.begin(), j);
+		for (int h = i + 1; h < Particles.size(); h++) {
+			std::list<PhysicsParticle*>::iterator b = std::next(Particles.begin(), h);
+
 			MyVector mag2Vector = (*a)->Position - (*b)->Position;
-
-			float mag2 = mag2Vector.SquareMagnitude();
-
+			float mag2 = mag2Vector.SquareMagnitude(); //square magnitude
 			float rad = (*a)->radius + (*b)->radius;
-
 			float rad2 = rad * rad;
 
-			if (mag2 < rad2)
-			{
-				MyVector dir = mag2Vector.direction();
+			if (mag2 <= rad2) {
+				MyVector dir = mag2Vector.direction(); //normalize
 
 				float r = rad2 - mag2;
 				float depth = sqrt(r);
 
-				float restitution = fmin((*a)->restitution, (*b)->restitution);
+				float restitution = fmin(
+					(*a)->restitution, (*b)->restitution
+				);
 
 				AddContact(*a, *b, restitution, dir, depth);
-
 			}
 		}
 	}
 }
+
 
 void PhysicsWorld::GenerateContacts()
 {

@@ -20,6 +20,9 @@ namespace physics{
 
 			float lifespan;
 
+			float radius;
+			float restitution = 0.9f;
+
 		protected:
 			void UpdatePosition(float time);
 			void UpdateVelocity(float time);
@@ -33,19 +36,14 @@ namespace physics{
 
 			void ResetForce();
 
-			//life
-			void AddLifeSpan();
-			void UpdateLifeSpan(float time);
-
 		public:
 			void Destroy();
 			bool IsDestroyed() { return isDestroyed; }
 
 		public:
-			float radius = 1.f;
-			float restitution = 1.f;
 
-			bool GetAffectedByForce();
+			MyVector GetPosition() { return Position; }
+			
 			void SetAffectedByForce(bool force) { this->affectedByForce = force; };
 	};
 }
