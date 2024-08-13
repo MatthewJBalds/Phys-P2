@@ -1,8 +1,4 @@
 ﻿  GDPHYSX-SampleProject.cpp
-C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\GDPHYSX-SampleProject.cpp(45,45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\GDPHYSX-SampleProject.cpp(45,31): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\GDPHYSX-SampleProject.cpp(89,60): warning C4305: 'argument': truncation from 'double' to 'float'
-  Chain.cpp
-  bungee.cpp
-  Generating Code...
-  GRAP1_Projects.vcxproj -> C:\Users\Matthew Jayd\Physx-PC01\GDPHYSX-SampleProject\x64\Debug\GDPHYSX-SampleProject.exe
+C:\Users\matth\Documents\GitHub\Phys-P2\GDPHYSX-SampleProject\GDPHYSX-SampleProject.cpp(68,45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\matth\Documents\GitHub\Phys-P2\GDPHYSX-SampleProject\GDPHYSX-SampleProject.cpp(68,31): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  GRAP1_Projects.vcxproj -> C:\Users\matth\Documents\GitHub\Phys-P2\GDPHYSX-SampleProject\x64\Debug\GDPHYSX-SampleProject.exe

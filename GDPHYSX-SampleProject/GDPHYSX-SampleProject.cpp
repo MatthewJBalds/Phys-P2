@@ -205,10 +205,12 @@ int main(void)
             {
                 p1.AddForce(physics::MyVector(forceX, forceY, forceZ));
                 std::cout << (paused ? "Paused" : "Resumed") << std::endl;
+                paused = true;
                 pressed = true;
             }
             if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_RELEASE)
             {
+                paused = false;
                 pressed = false;
             }
 
